@@ -7,6 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import { useAuth, useClerk } from '@clerk/nextjs'
 import { FlameIcon, HomeIcon, PlaySquareIcon } from 'lucide-react'
 import Link from 'next/link'
 
@@ -21,9 +22,14 @@ const items = [
   { title: 'Trending', url: '/feed/trending', icon: FlameIcon },
 ]
 
-function handleClickMenu() {}
-
 export function MainSection() {
+  const clerk = useClerk()
+  const { userId } = useAuth()
+
+  /* function handleCLick() {
+    if (!userId && item.auth)
+  } */
+
   return (
     <SidebarGroup>
       <SidebarGroupContent>
@@ -34,7 +40,12 @@ export function MainSection() {
                 tooltip={item.title}
                 asChild
                 isActive={false} // TODO: Change to look at current pathname
-                onClick={handleClickMenu} // TODO: Make function do something
+                onClick={e => {
+                  if (!userId && item.auth) {
+                    e.preventDefault()
+                    return clerk.openSignIn()
+                  }
+                }} // TODO: Make function do something
               >
                 <Link
                   href={item.url}
