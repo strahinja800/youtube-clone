@@ -9,8 +9,9 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { HistoryIcon, ListVideoIcon, ThumbsUpIcon } from 'lucide-react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useAuth, useClerk } from '@clerk/nextjs'
+// import { useAuth, useClerk } from '@clerk/nextjs'
 
 const items = [
   {
@@ -34,8 +35,10 @@ const items = [
 ]
 
 export function PersonalSection() {
-  const clerk = useClerk()
-  const { userId } = useAuth()
+  // const clerk = useClerk()
+  // const { userId } = useAuth()
+
+  const { data: session, status } = useSession()
 
   return (
     <SidebarGroup>
@@ -49,9 +52,9 @@ export function PersonalSection() {
                 asChild
                 isActive={false} // TODO: Change to look at current pathname
                 onClick={e => {
-                  if (!userId && item.auth) {
+                  if (!session && item.auth) {
                     e.preventDefault()
-                    return clerk.openSignIn()
+                    return signIn('google')
                   }
                 }} // TODO: Make function do something
               >

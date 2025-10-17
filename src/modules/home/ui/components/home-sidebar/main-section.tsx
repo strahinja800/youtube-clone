@@ -7,8 +7,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { useAuth, useClerk } from '@clerk/nextjs'
+// import { useAuth, useClerk } from '@clerk/nextjs'
 import { FlameIcon, HomeIcon, PlaySquareIcon } from 'lucide-react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 const items = [
@@ -23,8 +24,10 @@ const items = [
 ]
 
 export function MainSection() {
-  const clerk = useClerk()
-  const { userId } = useAuth()
+  // const clerk = useClerk()
+  // const { userId } = useAuth()
+
+  const { data: session, status } = useSession()
 
   /* function handleCLick() {
     if (!userId && item.auth)
@@ -41,9 +44,9 @@ export function MainSection() {
                 asChild
                 isActive={false} // TODO: Change to look at current pathname
                 onClick={e => {
-                  if (!userId && item.auth) {
+                  if (!session && item.auth) {
                     e.preventDefault()
-                    return clerk.openSignIn()
+                    return signIn('google')
                   }
                 }} // TODO: Make function do something
               >
