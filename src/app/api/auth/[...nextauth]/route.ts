@@ -19,6 +19,14 @@ export const authOptions: AuthOptions = {
   // pages: {
   //   signIn: '/sign-in', // Opciono: ako želiš custom stranicu za logovanje
   // },
+  callbacks: {
+    async session({ token, session }) {
+      if (token && session.user) {
+        session.user.id = token.sub
+      }
+      return session
+    },
+  },
 }
 
 const handler = NextAuth(authOptions)

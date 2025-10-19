@@ -2,7 +2,6 @@
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import Image from 'next/image'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +20,8 @@ export default function userNav() {
 
   // user data
   const { user } = session
-  console.log(user?.image)
+
+  console.log(user)
 
   return (
     <>

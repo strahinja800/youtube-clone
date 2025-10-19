@@ -1,5 +1,11 @@
-import Image from 'next/image'
+import { getGreatings } from '@/actions/getGreetings'
 
-export default function Home() {
-  return <h1>Videos will come in the future...</h1>
+export default async function Home() {
+  const greetingsMessage = await getGreatings('alal')
+
+  return (
+    <div>
+      <h1>Component says: {greetingsMessage}</h1>
+    </div>
+  )
 }
