@@ -1,11 +1,13 @@
-import { getGreatings } from '@/actions/getGreetings'
+import { getCategories } from '@/actions/getCategories'
+import { CategoriesSection } from '@/modules/home/ui/sections/categories-section'
+import HomeView from '@/modules/home/ui/views/home-view'
 
 export default async function Home() {
-  const greetingsMessage = await getGreatings('alal')
-
   return (
     <div>
-      <h1>Component says: {greetingsMessage}</h1>
+      <HomeView>
+        
+      </HomeView>
     </div>
   )
 }

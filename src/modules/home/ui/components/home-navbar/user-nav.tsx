@@ -21,8 +21,6 @@ export default function userNav() {
   // user data
   const { user } = session
 
-  console.log(user)
-
   return (
     <>
       <DropdownMenu>
